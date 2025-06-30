@@ -1,11 +1,27 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_mail import Mail, Message
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Loads variables from .env
+
 import json
 app = Flask(__name__)
 
 with open("config.json","r") as c:
     params=json.load(c)["params"]
+
+app.config.update(
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USERNAME=os.getenv('GMAIL_USER'), #Load from .env file
+    MAIL_PASSWORD=os.getenv('GMAIL_PASS'), #Load from .env file
+    MAIL_USE_TLS=False,
+    MAIL_USE_SSL=True
+)
+mail = Mail(app)
 
 # import pymysql
 # pymysql.install_as_MySQLdb()
@@ -51,6 +67,20 @@ def contact():
         entry = Contacts(name=name, email=email, phone_num=phone, msg=msg, date=datetime.now())
         db.session.add(entry)
         db.session.commit()
+
+        # Ensure recipient is set
+        recipient = os.environ.get('GMAIL_USER')
+        if not recipient:
+            return "Recipient email is not configured", 500
+
+        # Send Email
+        mail_msg = Message(
+            subject='New message from ' + name,
+            sender=email,
+            recipients=[recipient],
+            body=msg+ '\nPhone: ' + phone
+        )
+        mail.send(mail_msg)
     return render_template('contact.html', params=params)
 
 
