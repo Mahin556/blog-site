@@ -7,6 +7,10 @@
         "fb_url":"https://facebook.com/devopsclub",
         "tw_url":"https://twitter.com/devopsclub",
         "git_url":"https://github.com/devopsclub",
-        "About": "I am a devops engineer, with very big ambitions\nCurrently working as a freelancer."
+        "About": "I am a devops engineer, with very big ambitions\nCurrently working as a freelancer.",
+        "no_of_posts": 5,
+        "login_img": "bootstrap-solid.svg",
+        "admin_user": "mahin",
+        "admin_password": "mahin"
     }
 }

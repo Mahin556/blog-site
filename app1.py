@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_mail import Mail, Message
@@ -9,6 +9,8 @@ load_dotenv()  # Loads variables from .env
 
 import json
 app = Flask(__name__)
+
+app.secret_key = 'super_secret_key'
 
 with open("config.json","r") as c:
     params=json.load(c)["params"]
@@ -57,15 +59,36 @@ class Posts(db.Model):
     content = db.Column(db.String(100), nullable=False)
     date = db.Column(db.String(12), nullable=True)
     img_name = db.Column(db.String(30), nullable=True)
+    subtitle = db.Column(db.String(20), nullable=False)
 
 
 @app.route("/")
 def home():
-    return render_template("index.html", params=params)
+    posts=Posts.query.filter_by().all()[0:params['no_of_posts']]
+    return render_template("index.html", params=params, posts=posts)
 
 @app.route("/about")
 def about():
     return render_template('about.html', params=params)
+
+@app.route("/dashboard", methods = ['GET', 'POST'])
+def dashboard():
+    # validating if user already login
+    if ( 'user' in session) and ( session['user'] == params['admin_user'] ):
+        posts=Posts.query.filter_by().all()
+        return render_template('dashboard.html', params=params, posts=posts)
+    
+    if request.method == 'POST':
+        username = request.form.get('uname')
+        userpass = request.form.get('pass')
+        # Redirect to Admin dashboard
+        if ( username == params['admin_user'] and userpass == params['admin_password']):
+            # set the session variable
+            session['user'] = username
+            posts=Posts.query.filter_by().all()
+            return render_template('dashboard.html', params=params, posts=posts)
+    
+    return render_template('login.html', params=params)
 
 @app.route("/contact", methods = ['GET', 'POST'])
 def contact(): 
