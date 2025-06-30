@@ -6,6 +6,7 @@
         "prod_db_uri":"mysql+pymysql://root:Pass_word1@localhost/devopsclub",
         "fb_url":"https://facebook.com/devopsclub",
         "tw_url":"https://twitter.com/devopsclub",
-        "git_url":"https://github.com/devopsclub"
+        "git_url":"https://github.com/devopsclub",
+        "About": "I am a devops engineer, with very big ambitions\nCurrently working as a freelancer."
     }
 }

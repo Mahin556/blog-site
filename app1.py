@@ -47,6 +47,17 @@ class Contacts(db.Model):
     msg = db.Column(db.String(120), nullable=False)
     date = db.Column(db.String(12), nullable=True)
 
+class Posts(db.Model):
+    '''
+    sno, slug, title, content, date
+    '''
+    sno = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(25), nullable=False)
+    title = db.Column(db.String(30), nullable=False)
+    content = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.String(12), nullable=True)
+    img_name = db.Column(db.String(30), nullable=True)
+
 
 @app.route("/")
 def home():
@@ -57,7 +68,7 @@ def about():
     return render_template('about.html', params=params)
 
 @app.route("/contact", methods = ['GET', 'POST'])
-def contact():
+def contact(): 
     if (request.method == 'POST'):
         '''Add Entry to the Database'''
         name = request.form.get('name')
@@ -84,9 +95,11 @@ def contact():
     return render_template('contact.html', params=params)
 
 
-@app.route("/post")
-def post():
-    return render_template('post.html', params=params)
+@app.route("/post/<string:post_slug>", methods = ['GET'])
+def post_get(post_slug):
+    post=Posts.query.filter_by(slug=post_slug).first()
+    return render_template('post.html', params=params, post=post)
+
 
 app.run(debug=True,host='192.168.29.173')
 
