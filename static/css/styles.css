@@ -3619,6 +3619,20 @@ textarea.form-control-lg {
   background-color: var(--bs-nav-pills-link-active-bg);
 }
 
+.container-post {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container-post .form-floating {
+    margin-bottom: 15px; /* Adds space between form elements */
+}
+
 .nav-fill > .nav-link,
 .nav-fill .nav-item {
   flex: 1 1 auto;

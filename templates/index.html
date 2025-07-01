@@ -23,7 +23,7 @@
             <div class="post-preview">
                 <a href="/post/{{ post.slug }}">
                     <h2 class="post-title">{{ post.title }}</h2>
-                    <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                    <h3 class="post-tagline">{{ post.tagline }}</h3>
                 </a>
                 <p class="post-meta">
                     Posted by
@@ -47,8 +47,8 @@
 
             <!-- Pager -->
             <div class="d-flex justify-content-between mb-4">
-                <a class="btn btn-primary text-uppercase" href="/newer">← Newer Posts</a>
-                <a class="btn btn-primary text-uppercase" href="/older">Older Posts →</a>
+                <a class="btn btn-primary text-uppercase" href="{{prev}}">← Previous</a>
+                <a class="btn btn-primary text-uppercase" href="{{next}}">Next →</a>
             </div>
 
         </div>

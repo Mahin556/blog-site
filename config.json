@@ -8,9 +8,10 @@
         "tw_url":"https://twitter.com/devopsclub",
         "git_url":"https://github.com/devopsclub",
         "About": "I am a devops engineer, with very big ambitions\nCurrently working as a freelancer.",
-        "no_of_posts": 5,
+        "no_of_posts": 3,
         "login_img": "bootstrap-solid.svg",
         "admin_user": "mahin",
-        "admin_password": "mahin"
+        "admin_password": "mahin",
+        "upload_location": "/root/flask/uploaded_files"
     }
 }
